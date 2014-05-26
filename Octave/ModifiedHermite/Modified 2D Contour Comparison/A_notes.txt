@@ -1,0 +1,6 @@
+Shows Original Hermite Interpolant within a cell on the left
+and Modified Hermite Interpolant within a cell on the right
+
+Shows that the local minima and maxima are not present in the modified Hermite
+
+Both left and right uses the same colour scale

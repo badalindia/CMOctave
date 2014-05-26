@@ -1,0 +1,4 @@
+The red curve shows the original Hermite interpolant
+The blue curve shows the modified Hermite interpolant
+The green line shows the max and min values at nodes
+the interpolant curve is along the cell diagonal
