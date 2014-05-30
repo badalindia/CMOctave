@@ -1,0 +1,11 @@
+In this test, 
+Coarse grid resolution is Nc = 16
+Sampling grid resolution is Ns = 256
+and fine grid resolution is varied to Nf = 32, 64 & 128. 
+
+
+Grid grid shows sampling grid.
+Red grid shows fine grid on which the final interpolant happens.
+
+
+It is observed that there is no change in the quality of results. 

@@ -1,0 +1,14 @@
+In this test, 
+Coarse grid resolution is Nc = 32
+Fine grid resolution is Nf = 64
+Sampling grid resolution is varied to 128, 256, 512, 1024, 2048. 
+
+
+Grid grid shows sampling grid.
+Red grid shows fine grid on which the final interpolant happens.
+
+Observations:
+1. Quality improves when sampling grid increases. 
+2. Size of ripples decreases. 
+3. Span of each ripple confines to 3-4 sampling grid and other previous experiments suggests that is has nothing to do with fine grid resolution.
+

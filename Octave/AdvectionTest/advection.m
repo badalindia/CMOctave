@@ -44,7 +44,7 @@ gridShiftN = 10;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %plotting parameters
-plotCtr = 64;
+plotCtr = 128;
 ifPlot = true;
 target = "Advection";
 Res = '-r150';
@@ -111,6 +111,21 @@ t = t+dt;
 if(mod(ctr, plotCtr)==0 && ifPlot)
         
         t
+			
+			#{
+			nx1 = 4;
+			nx2 = 5;
+			ny1 = 18;
+			ny2 = 19;
+			
+			
+        %for only a portion of output
+        xCut = [nx1*Np/32+1: nx2*Np/32+1];
+		yCut = [ny1*Np/32+1: ny2*Np/32+1];
+        
+        [XCut, YCut] = meshgrid(xCut, yCut);
+        ICut = (XCut-1)*(Np+1) + YCut;
+        #}
 
 		%using sampling grid
 		_x = H2dw(Xc, Yc, Hc, Hxc, Hyc, Hxyc, Xs, Ys);
@@ -124,17 +139,43 @@ if(mod(ctr, plotCtr)==0 && ifPlot)
 			maxG = max(max(G));
 			minG = min(min(G));
 			
-		
-        hold off;
-		contour(Xs, Ys, 2-G, [1,1], "linewidth", 2);
-		axis([0, 1, 0, 1],"square");
+			
+		hold off;
+		contour(Xs, Ys, 2-G, [1,1], "linewidth", 4);
+		%axis([nx1/32, nx2/32, ny1/32, ny2/32],"square");
+		axis([0, 1, 0, 1], 'square');
 		
 		hold on;
-		plot(Xs, Xs', 'r', "linewidth", 1);
-		plot(Ys, Ys', 'r', "linewidth", 1);
+		
+		plot(Xs , Ys , 'g', "linewidth", 0.5);
+		plot(Xs', Ys', 'g', "linewidth", 0.5);
+		
+			#{
+			%for fine grid on which the final interpolant is defined
+			xCutf = [nx1*Nf/32+1: nx2*Nf/32+1];
+			yCutf = [ny1*Nf/32+1: ny2*Nf/32+1];
+			
+			[XCutf, YCutf] = meshgrid(xCutf, yCutf);
+			ICutf = (XCutf-1)*(Nf+1) + YCutf;
+			#}
+			
+			plot(Xf , Yf , 'r', "linewidth", 2);
+			plot(Xf', Yf', 'r', "linewidth", 2);
+			
+			
+		
+		print( strcat('Images/rho/RHO_', num2str(Nc), '_', num2str(Nf), '_', num2str(Np),'.png') , '-r600');
 		hold off;
 		
-		print( strcat('Images/rho/RHO_', num2str(Nc), '_', num2str(ctr2),'.png') , '-r10000');
+		
+		#{
+		pcolor(Xs, Ys, 2-G);
+		colormap(gray);
+		shading flat;
+		caxis([0, 2]);
+		print( strcat('Images/rho/RHO_', num2str(Nc), '_', num2str(Nf), '_', num2str(Np),'.png') , '-r1000');
+		#}
+		
 		
 		
 		%dlmwrite(strcat('Images/rho_', num2str(Nc), '_', num2str(ctr2),'.blk'), 2 - G, "delimiter", "\n");
