@@ -1,6 +1,6 @@
 %testing GALS 1D using exact solution
 
-n = [6];
+n = [4:9];
 N = 2.^n;
 I = length(N);
 
@@ -22,12 +22,12 @@ for i=[1:I]
 
 	QExact = sin(x);
 
-	[Q Qx] = GALS1d(x, Q, Qx, U, t0, tf, h/2, true);
+	[Q Qx] = GALS1d(x, Q, Qx, U, t0, tf, h/2, false);
 	
 	e(i) = max(abs(Q - QExact));
 	Dx(i) = h;
 
 end
 
-plot(log(Dx), log(e));
+plot(log(Dx), log(e), '-or');
 Accuracy = polyfit(log(Dx), log(e), 1)(1)
