@@ -83,7 +83,7 @@ eta = 10^-6;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %plotting parameters
-plotCtr = 20;
+plotCtr = 10;
 target = "NavierStokes_Smoke_Obs";
 Res = '-r150';
 nC = 50;
