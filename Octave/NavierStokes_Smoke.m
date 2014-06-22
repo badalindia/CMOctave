@@ -4,9 +4,9 @@ page_output_immediately(true);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Initial conditions
-Nc = 16;
-Nf = 32;
-Np = 128;
+Nc = 32;
+Nf = 64;
+Np = 512;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -94,7 +94,7 @@ gridShiftN = 5;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %plotting parameters
-plotCtr = 200;
+plotCtr = 10;
 target = "NavierStokes_Smoke";
 Res = '-r150';
 nC = 50;
@@ -106,14 +106,10 @@ tf = 10001*dt;
 ctr = 1;
 ctr2 = 0;
 
-UU = @(X, Y, T) -cos(T).*(sin(pi.*X).^2).*sin(2.*pi.*Y);
-VV = @(X, Y, T)  cos(T).*(sin(pi.*Y).^2).*sin(2.*pi.*X);
-
-
 while t < tf - 0.1*dt;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % projection method
-#{
+
 %step 1, calculating U*
 	
 	%calculating the convective flux (non-linear term)
@@ -173,13 +169,7 @@ while t < tf - 0.1*dt;
 	V_ = Vstar_ - dt*Py_;
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-#}
 
-U = UU(Xc, Yc, t);
-V = VV(Xc, Yc, t);
-
-U_ = fft2(U(1:Nc, 1:Nc));
-V_ = fft2(V(1:Nc, 1:Nc));
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %advection of chi
@@ -212,19 +202,10 @@ V_ = fft2(V(1:Nc, 1:Nc));
 	[x0_xnyn, y0_xnyn] = AdvectionUV_Euler1D(Xc, Yc, Xc-eh, Yc-eh, dt, U0, U0x, U0y, U0xy, V0, V0x, V0y, V0xy);
 	#}
 	
-	#{
 	[x0_xpyp, y0_xpyp] = fpiUV(Xc, Yc, Xc+eh, Yc+eh, t, dt, U0, U0x, U0y, U0xy, V0, V0x, V0y, V0xy);
 	[x0_xpyn, y0_xpyn] = fpiUV(Xc, Yc, Xc+eh, Yc-eh, t, dt, U0, U0x, U0y, U0xy, V0, V0x, V0y, V0xy);
 	[x0_xnyp, y0_xnyp] = fpiUV(Xc, Yc, Xc-eh, Yc+eh, t, dt, U0, U0x, U0y, U0xy, V0, V0x, V0y, V0xy);
 	[x0_xnyn, y0_xnyn] = fpiUV(Xc, Yc, Xc-eh, Yc-eh, t, dt, U0, U0x, U0y, U0xy, V0, V0x, V0y, V0xy);
-	#}
-	
-	[x0_xpyp, y0_xpyp] = RK3_2D(Xc+eh, Yc+eh, t+dt, -dt, UU, VV);
-	[x0_xpyn, y0_xpyn] = RK3_2D(Xc+eh, Yc-eh, t+dt, -dt, UU, VV);
-	[x0_xnyp, y0_xnyp] = RK3_2D(Xc-eh, Yc+eh, t+dt, -dt, UU, VV);
-	[x0_xnyn, y0_xnyn] = RK3_2D(Xc-eh, Yc-eh, t+dt, -dt, UU, VV);
-	
-	%x0_xpyp
 	
 	H0_xpyp  = H2dw(Xc, Yc, Hc, Hxc, Hyc, Hxyc, x0_xpyp, y0_xpyp);
 	H0_xpyn  = H2dw(Xc, Yc, Hc, Hxc, Hyc, Hxyc, x0_xpyn, y0_xpyn);
@@ -261,7 +242,7 @@ V_ = fft2(V(1:Nc, 1:Nc));
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-t = t+dt;
+t = t+dt
 
 
 if(mod(ctr, plotCtr)==0)
@@ -290,10 +271,10 @@ if(mod(ctr, plotCtr)==0)
         myplot(1, Xs, Ys, G1, nC, gray, [0, 2], 
         strcat('Images/', target, '/rho/RHO_',num2str(Nc), '_',num2str(Nf), '_',num2str(Np), '_', num2str(ctr2),'.png'), Res);
 
-		%myplot(3, Xs, Ys, G2, nC, hot, [0, 1], 
-        %strcat('Images/', target, '/t/Temp_',num2str(Nc), '_',num2str(Nf), '_',num2str(Np), '_', num2str(ctr2),'.png'), Res);
+		myplot(3, Xs, Ys, G2, nC, hot, [0, 1], 
+        strcat('Images/', target, '/t/Temp_',num2str(Nc), '_',num2str(Nf), '_',num2str(Np), '_', num2str(ctr2),'.png'), Res);
         
-        dlmwrite(strcat('Images/', target, '/rho_', num2str(ctr2),'.blk'), 2 - G1, "delimiter", "\n");
+        %dlmwrite(strcat('Images/', target, '/rho_', num2str(ctr2),'.blk'), 2 - G1, "delimiter", "\n");
         
         ctr2 = ctr2+1;
 end

@@ -2,7 +2,7 @@ function myplot2(n, x, y, f, nC, map, range, path, res)
 
 dx = x(1, 2) - x(1, 1);
 
-x0=0.55;
+x0=0.5;
 y0=0.5;
 r0=0.15;
 
@@ -31,8 +31,8 @@ shading flat;
 colorbar;
 	hold on;
 	plot(circsx, circsy, 'b', 'linewidth', 2);
-	plot(circsx2, circsy2, 'b', 'linewidth', 1);
-	plot(circsx3, circsy3, 'b', 'linewidth', 1);
+	%plot(circsx2, circsy2, 'b', 'linewidth', 1);
+	%plot(circsx3, circsy3, 'b', 'linewidth', 1);
 	drawnow;
 	hold off;
 print(path, res);

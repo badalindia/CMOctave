@@ -83,7 +83,7 @@ eta = 10^-6;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %plotting parameters
-plotCtr = 200;
+plotCtr = 20;
 target = "NavierStokes_Smoke_Obs";
 Res = '-r150';
 nC = 50;
@@ -242,14 +242,14 @@ if(mod(ctr, plotCtr)==0)
                 __x = H2dw(Xf, Yf, Hf, Hxf, Hyf, Hxyf, Xs, Ys);
                 __y = H2dw(Xf, Yf, Vf, Vxf, Vyf, Vxyf, Xs, Ys);
                 
-                %G1 = 1-RHO(__x, __y, coeff);
+                G1 = 2-RHO(__x, __y, coeff);
                 G2 = T(__x, __y, coeff);
         
-        myquiver2(1, X, Y, U, V, 
-		strcat('Images/', target, '/v/vel_',num2str(Nc), '_',num2str(Nf), '_',num2str(Np), '_', num2str(ctr2),'.png'));
+        %myquiver2(1, X, Y, U, V, 
+		%strcat('Images/', target, '/v/vel_',num2str(Nc), '_',num2str(Nf), '_',num2str(Np), '_', num2str(ctr2),'.png'));
         
-        %myplot2(1, Xs, Ys, G1, nC, gray, [0, 1], 
-        %strcat('Images/', target, '/rho/RHO_',num2str(Nc), '_',num2str(Nf), '_',num2str(Np), '_', num2str(ctr2),'.png'), Res);
+        myplot2(1, Xs, Ys, G1, nC, gray, [0, 2], 
+        strcat('Images/', target, '/rho/RHO_',num2str(Nc), '_',num2str(Nf), '_',num2str(Np), '_', num2str(ctr2),'.png'), Res);
 
 		myplot2(2, Xs, Ys, G2, nC, hot, [0, 1], 
         strcat('Images/', target, '/t/Temp_',num2str(Nc), '_',num2str(Nf), '_',num2str(Np), '_', num2str(ctr2),'.png'), Res);
