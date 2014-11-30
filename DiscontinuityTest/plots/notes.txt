@@ -1,0 +1,8 @@
+In test 1, discontinuity is right at the grid point. 
+In test 2, discontinuity is right at the mid point of the the grid points. 
+
+(in "<test_name>_long" this is observed)
+Test 2 is stable, while test 1 gets unstable and attains a state with a little bit of overshoot which grows very slow.
+
+
+(in "<test_name>_long_success" things are fine)

@@ -1,0 +1,140 @@
+\documentclass[10pt]{article}
+\usepackage{graphicx}
+\usepackage{empheq}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{caption}
+
+\addtolength{\textheight}{4cm}
+\addtolength{\headheight}{-2.5cm}
+\addtolength{\oddsidemargin}{-3cm}
+\addtolength{\evensidemargin}{-3cm}
+\addtolength{\textwidth}{6cm}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.5}
+
+\title
+{$\mathstrut$\vspace{-2cm}\\
+\textbf{Sufficient conditions for 2D Monotone Hermite Interpolant}
+}
+%\date{}        % activate to suppress the automatic date.
+
+\begin{document}
+
+\maketitle
+
+
+%\tableofcontents
+
+%\newpage
+
+%---------------------------------------------------------------
+
+\section*{1D Hermite Interpolation}
+Given the values of $f$ \& $f_x$ at points $x_0$ \& $x_1$ : $\{f_{(0)}, f_{x(0)}, f_{(1)}, f_{x(1)} \}$,
+a cubic Hermite interpolation at point $x$ can be written as : 
+
+\begin{equation}
+f^{H}(x) = f_{(0)} b_1(dx) + f_{(1)} b_1(1 - dx) + h \big( f_{x(0)} b_2(dx) - f_{x(1)} b_2(1 - dx) \big)
+\end{equation}
+
+Where $dx = \frac{x - x_0}{x_1 - x_0}$, 
+\& $b_i$ are Hermite basis functions.
+
+For such an interpolation to be monotonous, 
+which means : 
+
+\begin{equation}
+\min(f_{(0)}, f_{(1)}) \le f^H(x) \le \max(f_{(0)}, f_{(1)}) \ \ \ \ \forall \ \ \{x: x_0 \le x \le x_1 \}
+\end{equation}
+
+we need the following conditions.
+
+\begin{equation} 
+\left.
+	\begin{aligned}
+	0 & \le & f_{x(0)}, f_{x(1)} & \le &  \frac{3}{h} (f_{(1)} - f_{(0)}) \ \ \ \ \text{if} \ (f_{(1)} - f_{(0)}) \ge 0 \ \ \ \ \\
+	0 & \ge & f_{x(0)}, f_{x(1)} & \ge &  \frac{3}{h} (f_{(1)} - f_{(0)}) \ \ \ \ \text{if} \ (f_{(1)} - f_{(0)}) < 0 \ \ \ \ 
+	\end{aligned}
+\right\}
+\label{cond}
+\end{equation} 
+
+For such a set of conditions, let us define a shorthand notation as follows : 
+
+\begin{equation}
+f_{x(0)}, f_{x(1)} << f_{(1)} - f_{(0)}
+\end{equation}
+
+
+
+
+
+
+
+
+%---------------------------------------------------------------
+\section*{2D Hermite Interpolation}
+
+Similarly, for a given values of $\{ f, f_x, f_y, f_{xy} \}$
+at points $ \{0, h\} \times \{0, h\}$ : 
+$\{ f_{(0, 0)}, ..., f_{xy(h, h)}\}$, 
+a bi-cubic Hermite interpolation at point $(x, y)$
+can we written as : 
+\emph{(For convenience of notation $h$ is taken to be $1$, 
+Yet, at some places `$h$' will be seen. This is to have final results in general form)}. 
+
+
+\begin{eqnarray}
+f^H_{(x, y)} = f^H_{(0, y)}b_1(x) + f^H_{(1, y)}b_1(1-x) + h\big( f^H_{x(0, y)}b_2(x) - f^H_{x(1, y)}b_2(1-x) \big) \label{fxy}
+\end{eqnarray}
+
+where
+
+\begin{eqnarray}
+f^H_{(0, y)} & = & f_{(0, 0)}b_1(y) + f_{(0, 1)}b_1(1-y) + h\big( f_{y(0, 0)}b_2(y) - f_{y(0, 1)}b_2(1-y) \big)  \label{f0y} \\
+f^H_{(1, y)} & = & f_{(1, 0)}b_1(y) + f_{(1, 1)}b_1(1-y) + h\big( f_{y(1, 0)}b_2(y) - f_{y(1, 1)}b_2(1-y) \big)  \label{f1y} \\
+f^H_{x(0, y)} & = & f_{x(0, 0)}b_1(y) + f_{x(0, 1)}b_1(1-y) + h\big( f_{xy(0, 0)}b_2(y) - f_{xy(0, 1)}b_2(1-y) \big)  \label{fx0y}\\
+f^H_{x(1, y)} & = & f_{x(1, 0)}b_1(y) + f_{x(1, 1)}b_1(1-y) + h\big( f_{xy(1, 0)}b_2(y) - f_{xy(1, 1)}b_2(1-y) \big)  \label{fx1y}
+\end{eqnarray}
+
+
+This way, we can interpret the 2D-cubic interpolation as a combination of 1D-cubic interpolations. 
+Our target is to apply condition shown in eq. (\ref{cond}) in the eqs. (\ref{fxy}) to (\ref{fx1y}).
+
+
+\begin{itemize}
+\item Firstly, we know from eq. (\ref{f0y}) and (\ref{f1y}) : 
+	\begin{eqnarray}
+	\text{if} \ \ f_{y(0, 0)}, f_{y(0, 1)} & << & f_{(0,1)} - f_{(0, 0)} \nonumber \\
+	\text{then} \ \ \min(f_{(0,1)}, f_{(0,0)}) & \le & f^H_{(0, y)} \ \le \  \max(f_{(0,1)}, f_{(0,0)}) \\
+	\text{if} \ \ f_{y(1, 0)}, f_{y(1, 1)} & << & f_{(1,1)} - f_{(1, 0)} \nonumber \\
+	\text{then} \ \ \min(f_{(1,1)}, f_{(1,0)}) & \le & f^H_{(1, y)} \ \le \ \max(f_{(1,1)}, f_{(1,0)})
+	\end{eqnarray} 
+\item \textbf{to-be-continued}. 
+\end{itemize}
+
+\subsection*{Final Conditions}
+
+
+\begin{eqnarray}
+\left.
+\begin{aligned}
+f_{x(0, 0)}, f_{x(1, 0)} & << &  f_{(1, 0)} - f_{(0, 0)} \\
+f_{x(0, 1)}, f_{x(1, 1)} & << &  f_{(1, 1)} - f_{(0, 1)} \\
+f_{y(0, 0)}, f_{y(0, 1)} & << &  f_{(0, 1)} - f_{(0, 0)} \\
+f_{y(1, 0)}, f_{y(1, 1)} & << &  f_{(1, 1)} - f_{(1, 0)} \\
+f_{xy(0, 0)}, f_{xy(0, 1)} & << &  f_{x(0, 1)} - f_{x(0, 0)} \\
+f_{xy(1, 0)}, f_{xy(1, 1)} & << &  f_{x(1, 1)} - f_{x(1, 0)} \\
+f_{xy(0, 0)}, f_{xy(1, 0)} & << &  f_{y(1, 0)} - f_{y(0, 0)} \\
+f_{xy(0, 1)}, f_{xy(1, 1)} & << &  f_{y(1, 1)} - f_{y(0, 1)} \\
+f_{y(1, 0)} - f_{y(0, 0)}, f_{y(1, 1)} - f_{y(0, 1)} & << &  f_{(1, 1)} + f_{(0, 0)} - f_{(1, 0)} - f_{(0, 1)} \\
+f_{x(0, 1)} - f_{x(0, 0)}, f_{x(1, 1)} - f_{x(1, 0)} & << &  f_{(1, 1)} + f_{(0, 0)} - f_{(1, 0)} - f_{(0, 1)} 
+\end{aligned}
+\ \ \ \ \ \ \right\}
+\end{eqnarray}
+
+%---------------------------------------------------------------
+
+\end{document}

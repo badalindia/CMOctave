@@ -1,0 +1,21 @@
+Finally the scheme that works is as follows: 
+
+We have set of points S = [0, h, 2h, ... , Nh], where (N+1)h = 1
+On this set, we have values f(x) and fx(x) (where x lies in S)
+which we can use as the piece-wise hermit interpolant H on S. 
+
+we destribute these points into two sets
+S1 = {(2n+1)h: n are integers such that 1<= 2n+1 <= N}
+S2 = {(2n)h: n are integers such that 1<= 2n <= N}
+
+Let say H1 is a piece-wise hermite interpolant on S1 (only using valyes f(x) and fx(x), for each x in S1)
+
+Let say H2 is a piece-wise hermite interpolant on S2 (only using valyes f(x) and fx(x), for each x in S2)
+
+In every odd-numbered iteration, 
+we look for H1.
+It it has tendency to overshoot, 
+we refined the values 
+
+
+
